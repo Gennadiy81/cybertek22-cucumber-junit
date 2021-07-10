@@ -9,6 +9,14 @@ import org.junit.Assert;
 import org.openqa.selenium.Keys;
 
 public class Google_StepDefinition {
+
+    @Then("User should see title is Google")
+    public void user_should_see_title_is_google() {
+        String actualTitle = Driver.getDriver().getTitle();
+        String expectedTitle = "Google";
+
+        Assert.assertEquals(actualTitle, expectedTitle);
+    }
     @Given("User is on Google home page")
     public void user_is_on_google_home_page() {
 
@@ -20,8 +28,6 @@ public class Google_StepDefinition {
     public void user_searches_for_apple() {
         GoogleSearchPage googleSearchPage = new GoogleSearchPage();
         googleSearchPage.searchBar.sendKeys("apple" + Keys.ENTER);
-
-
 
     }
 
