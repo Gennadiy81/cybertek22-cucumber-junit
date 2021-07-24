@@ -2,6 +2,7 @@ package com.cybertek.step_definitions;
 
 import com.cybertek.pages.DropdownsPage;
 import com.cybertek.pages.LibraryLoginPage;
+import com.cybertek.utilities.BrowserUtils;
 import com.cybertek.utilities.ConfigurationReader;
 import com.cybertek.utilities.Driver;
 import io.cucumber.java.en.Given;
@@ -11,7 +12,6 @@ import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,13 +29,15 @@ public class DataTable_StepDefinition {
         Select select = new Select(dropdownsPage.month);
         List<WebElement> actualMonthAsWebElement = select.getOptions();
 
-        //3 - Convert from List<WebElement> to List<String>
-         List<String> actualMonthsAsString = new ArrayList<>();
-        for (WebElement each : actualMonthAsWebElement) {
-            actualMonthsAsString.add(each.getText());
-        }
+        Assert.assertEquals(expectedList, BrowserUtils.getElementText(actualMonthAsWebElement));
 
-        Assert.assertEquals(expectedList, actualMonthsAsString);
+        //3 - Convert from List<WebElement> to List<String>
+//         List<String> actualMonthsAsString = new ArrayList<>();
+//        for (WebElement each : actualMonthAsWebElement) {
+//            actualMonthsAsString.add(each.getText());
+//        }
+//
+//        Assert.assertEquals(expectedList, actualMonthsAsString);
 
     }
 
