@@ -1,31 +1,45 @@
 package com.cybertek.step_definitions;
 
 import com.cybertek.utilities.Driver;
-import io.cucumber.java.After;
-import io.cucumber.java.AfterStep;
-import io.cucumber.java.Before;
-import io.cucumber.java.BeforeStep;
+import io.cucumber.java.*;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 
 public class Hooks {
-
-    // Import from io.cucumber.java npt from junit
-    @Before(value = "@login", order = 1)
-    public void setupScenario(){
-        System.out.println("--Setting up browser with further details...");
+    //Import from io.cucumber.java not from junit
+    @Before (value = "@login", order = 1)
+    public void setupLoginScenario(){
+        System.out.println("BEFORE--Setting up browser with further details...");
     }
+
+    @Before ("@db")
+    public void setupScenario(){
+        System.out.println("BEFORE--Setting up browser with further details...");
+    }
+
     @After
-    public void tearDownScenario(){
-        System.out.println("--Teardown steps are bing applied");
+    public void tearDownScenario(Scenario scenario){
+
+        //IF MY SCENARIO FAILS
+        // TAKE A SCREENSHOT
+
+        //scenario.isFailed()
+        if (scenario.isFailed()){
+            byte [] screenshot = ((TakesScreenshot)Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
+            scenario.attach(screenshot, "image/png", scenario.getName());
+        }
+
+        System.out.println("AFTER--Teardown steps are being applied...");
         Driver.closeDriver();
     }
 
     @BeforeStep
     public void setupStep(){
-        System.out.println("---setup applying for each step");
+        System.out.println("----setup applying for each step");
     }
 
     @AfterStep
     public void afterStep(){
-        System.out.println("--_teardown applying for each step");
-    }
+        System.out.println("----teardown applying for each step");
+   }
 }
