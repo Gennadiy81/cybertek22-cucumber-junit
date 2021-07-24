@@ -29,7 +29,7 @@ public class DataTable_StepDefinition {
         Select select = new Select(dropdownsPage.month);
         List<WebElement> actualMonthAsWebElement = select.getOptions();
 
-        Assert.assertEquals(expectedList, BrowserUtils.getElementText(actualMonthAsWebElement));
+        Assert.assertEquals(expectedList, BrowserUtils.getElementsText(actualMonthAsWebElement));
 
         //3 - Convert from List<WebElement> to List<String>
 //         List<String> actualMonthsAsString = new ArrayList<>();
